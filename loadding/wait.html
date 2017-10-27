@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+<style type="text/css">
+    .animeCirclr{
+        position: absolute;
+        top:35%;
+        left: 45%;
+        width:100px;
+        height: 100px;
+        -webkit-animation:circle 2s infinite linear;
+    }
+    .animeCirclr_dot{
+        position: absolute;
+        z-index: 10;
+        border-radius: 50%;
+        background-color: #b7b7b7;
+        /*background-color: #05AFD9;*/
+    }
+    .animeCirclr_text{
+        position:absolute;
+        top:30%;
+        left:42%;
+        margin-top: 150px;
+        display:block;
+        font-size: 20px;
+        color: #000;
+        margin-left: 25px;
+    }
+    @-webkit-keyframes circle{
+        0%{ transform: rotate(0deg); }
+        100%{ transform: rotate(360deg); }
+    }
+</style>
+</head>
+<body style="background-color: white">
+    <div class="animeCirclr">
+        <!--    <div class="dot" style="width: 30px; height: 30px;margin-left: 87px; margin-top: 21px;"></div>-->
+        <div class="animeCirclr_dot" style="width: 14px; height: 14px;margin-left: 25px; margin-top: 16px;"></div>
+        <div class="animeCirclr_dot" style="width: 13px; height: 13px;margin-left: 12px; margin-top: 30px;"></div>
+        <div class="animeCirclr_dot" style="width: 12px; height: 12px;margin-left: 9px; margin-top: 48px;"></div>
+        <div class="animeCirclr_dot" style="width: 11px; height: 11px;margin-left: 15px; margin-top: 65px;"></div>
+        <div class="animeCirclr_dot" style="width: 10px; height: 10px;margin-left: 28px; margin-top: 77px;"></div>
+        <div class="animeCirclr_dot" style="width: 9px; height: 9px;margin-left: 49px; margin-top: 79px;"></div>
+        <div class="animeCirclr_dot" style="width: 8px; height: 8px;margin-left: 65px; margin-top: 72px;"></div>
+        <div class="animeCirclr_dot" style="width: 7px; height: 7px;margin-left: 75px; margin-top: 59px;"></div>
+        <div class="animeCirclr_dot" style="width: 6px; height: 6px;margin-left: 78px; margin-top: 43px;"></div>
+        <div class="animeCirclr_dot" style="width: 5px; height: 5px;margin-left: 75px; margin-top: 30px;"></div>
+        <div class="animeCirclr_dot" style="width: 4px; height: 4px;margin-left: 68px; margin-top: 21px;"></div>
+    </div>
+    <span class="animeCirclr_text">文件正在转换, 请稍候...</span>
+</body>
+</html>

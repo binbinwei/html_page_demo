@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="jquery.min.js"></script>
+  <style>
+      #tab{background-color: white;height: 60px}
+      #tab div{float: left}
+     .center{
+         display: table; /*重点就是这个属性,这个样式会告知浏览器当前元素的宽度,采用最小的宽度.不是默认全宽*/
+         margin: 0 auto;
+     }
+     .img_display{
+         height: 50px;width: 50px;float: left;margin-right: 20px;
+     }
+      .tab_display{
+          padding-top: 5px;padding-bottom:5px;padding-left: 20px;padding-right: 20px;
+      }
+      .tab2_display{
+         padding-top: 5px;padding-bottom:5px;background-color: #f0f0f0;padding-left: 20px;padding-right: 20px;
+      }
+      .text_display{
+          float: left;font-size: 16px
+      }
+      .card1_display{
+          width: 33%;height: 400px;background-color: white;float: left;margin-right: 1%;margin-top: 10px; box-shadow: 1px 1px 3px #b0b0b0;
+      }
+      .card2_display{
+          width: 32%;height: 400px;background-color: white;float: left;margin-right: 1%;margin-top: 10px; box-shadow: 1px 1px 3px #b0b0b0;
+      }
+      .card3_display{
+          width: 33%;height: 400px;background-color: white;float: left;margin-top: 10px; box-shadow: 1px 1px 3px #b0b0b0;
+      }
+      .card4_display{
+          width: 33%;height: 400px;background-color: white;float: left;margin-top: 10px; box-shadow: 1px 1px 3px #b0b0b0;
+      }
+      .midcard1_display{
+          width: 50%;float: left;margin-top: 10px;
+      }
+      .midcard2_display{
+          font-size: 14px;height:20px;margin-left: 10px;
+      }
+      .midcard3_display{
+          width: 80%;height: 1px;background-color: #e4e5e7;margin-left: 10px;
+      }
+      .midcard4_display{
+          padding: 5px;margin-top: 5px;margin-left: 10px;
+      }
+      .midcard5_display{
+          width: 50px;height:55px;float: left;margin-right: 10px
+      }
+      .midcard6_display{
+          float: left;font-size: 10px;
+      }
+      .midcard7_display{
+          float: left;font-size: 10px;
+      }
+      .midcard8_display{
+
+      }
+      .midcardh1{
+          font-size: 20px;width: 100%;height: 30px;margin-top: 20px;
+      }
+      .midcardh2{
+          float: left;margin-left: 10px
+      }
+      .midcardh3{
+          height: 30px;width: 30px;float: right;margin-right: 30px
+      }
+
+  </style>
+    <script>
+        var p1='';
+        var p2='';
+        var p3='';
+        var p4='';
+        var eiinfo = {
+            "msg": "",
+            "msgKey": "",
+            "detailMsg": "",
+            "status": 0,
+            "attr": {
+                "service": "EDCH00",
+                "method": "getProcessWithInformation"
+            },
+            "blocks": {}
+        };
+       var end =  JSON.stringify(eiinfo);
+        var menuP = {
+                eiinfo:end,
+                service:'EDCH00',
+                method:'getProcessWithInformation',
+            };
+        //var menuParam = {parameter_postdata:JSON.stringify(menuP),datatype:"json/json"};
+        function GetFeed() {
+            $.ajax({
+                url: 'http://202.101.47.84:9080/iPlat4j3/EiService',
+                data: 'eiinfo='+end+'&service=EDCH00&method=getProcessWithInformation',
+                type: 'post',
+                contentType: 'application/x-www-form-urlencoded',
+                success: function (data) {
+                    //成功后处理
+                    var d = data;
+                     p1 = d.blocks.result.rows;
+                    p2 = p1[0][0];
+                    p3 = p1[0][5];
+                    p4 = p1[0][7];
+                },
+                error: function (xhr) {
+                    //失败后继续五秒加载
+                    var d = xhr;
+                }
+            });
+        }
+
+        function jumpUrl(){
+            var p5 = p4.replace("'","").replace("'","");
+            var url = 'http://202.101.47.84:9080/iPlat4j3/DispatchAction.do?efFormEname=EDCH00&inqu_status-0-processinstid='+p2+'&inqu_status-0-form_ename='+p5+'&inqu_status-0-description='+p3;
+            window.location.href=url;
+        }
+        GetFeed();
+    </script>
+</head>
+<body style="padding: 0px;margin: 0px;background-color: #f0f0f0;">
+  <div style="height: 40px;background-color: #1861be">
+      <img style="width: 100px;height: 35px;margin-top: 2px;margin-left: 10px;float: left;margin-right: 20px" src="img/logo.png"/>
+      <div style="height: 40px;width:100px;background-color:#81a7ff;float: left;text-align: center;margin-right: 1px">
+          <div style="margin-top: 10px;color: #e3f1ff">办事大厅</div>
+      </div>
+      <div style="height: 40px;width:100px;background-color:#8a32ff;float: left;text-align: center;margin-right: 1px">
+          <div style="margin-top: 10px;color: #e3f1ff">服务中心</div>
+      </div>
+      <div style="height: 40px;width:100px;background-color:#8a32ff;float: left;text-align: center;">
+          <div style="margin-top: 10px;color: #e3f1ff">个人中心</div>
+      </div>
+      <div style="float: right">
+          <img style="width: 18px;height: 18px;margin-top: 11px;margin-right: 10px" src="img/research.png"/>
+          <img style="width: 18px;height: 18px;margin-top: 11px;margin-right: 10px" src="img/user1.png"/>
+          <span style="color: white;margin-right: 30px">用户登陆</span>
+      </div>
+  </div>
+
+  <div style="width: 100%;background-color: white;box-shadow: 1px 1px 3px #b0b0b0;margin-top: 2px">
+      <hr style="border:none;border-top:2px ridge green;width: 100%;margin: 0px;margin-bottom: 2px"/>
+      <div class="center" id="tab">
+          <div class="tab2_display">
+             <img class="img_display" src="img/1.png"/>
+              <div class="text_display">
+                  <div>学生办事</div><br>
+                  <div>Student</div>
+              </div>
+          </div>
+          <div class="tab_display">
+              <img class="img_display" src="img/2.png"/>
+              <div class="text_display">
+                  <div>教师办事</div><br>
+                  <div>Teacher</div>
+              </div>
+          </div>
+          <div class="tab_display">
+              <img class="img_display" src="img/3.png"/>
+              <div class="text_display">
+                  <div>游客浏览</div><br>
+                  <div>Guest</div>
+              </div>
+          </div>
+      </div>
+  </div>
+<div style="width: 100%;">
+
+    <div class="card1_display">
+        <div class="midcardh1">
+            <div class="midcardh2">生活服务</div>
+            <img  class="midcardh3" src="img/youjiantou.png"/>
+        </div>
+        <div class="midcard8_display">
+        <div class="midcard1_display">
+            <div class="midcard2_display">体育场地借用</div>
+            <div class="midcard3_display"></div>
+            <div class="midcard4_display" onclick="jumpUrl()">
+                <img src="img/message_02.png" class="midcard5_display"/>
+                <div class="midcard6_display">生活服务</div><br>
+                <img src="img/star_red.png"/>
+                <img src="img/star_red.png"/>
+                <img src="img/star_red.png"/>
+                <img src="img/star.png"/>
+                <img src="img/star.png"/><br>
+                <div class="midcard7_display">63人收藏</div><br>
+            </div>
+
+        </div>
+            <div class="midcard1_display">
+                <div class="midcard2_display">学生宿舍调整</div>
+                <div class="midcard3_display"></div>
+                <div class="midcard4_display">
+                    <img src="img/message_04.png" class="midcard5_display"/>
+                    <div class="midcard6_display">生活服务</div><br>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star.png"/><br>
+                    <div class="midcard7_display">3人收藏</div><br>
+                </div>
+
+            </div>
+        </div>
+        <div class="midcard8_display">
+            <div class="midcard1_display">
+                <div class="midcard2_display">宿舍电费充值</div>
+                <div class="midcard3_display"></div>
+                <div class="midcard4_display">
+                    <img src="img/14.png" class="midcard5_display"/>
+                    <div class="midcard6_display">生活服务</div><br>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star.png"/><br>
+                    <div class="midcard7_display">60人收藏</div><br>
+                </div>
+
+            </div>
+            <div class="midcard1_display">
+                <div class="midcard2_display">食堂借用</div>
+                <div class="midcard3_display"></div>
+                <div class="midcard4_display">
+                    <img src="img/message_05.png" class="midcard5_display"/>
+                    <div class="midcard6_display">生活服务</div><br>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star.png"/>
+                    <img src="img/star.png"/><br>
+                    <div class="midcard7_display">11人收藏</div><br>
+                </div>
+
+            </div>
+        </div>
+        <div class="midcard8_display">
+            <div class="midcard1_display">
+                <div class="midcard2_display">学生个性化活动场地借用</div>
+                <div class="midcard3_display"></div>
+                <div class="midcard4_display">
+                    <img src="img/message_06.png" class="midcard5_display"/>
+                    <div class="midcard6_display">生活服务</div><br>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star.png"/>
+                    <img src="img/star.png"/><br>
+                    <div class="midcard7_display">0人收藏</div><br>
+                </div>
+
+            </div>
+            <div class="midcard1_display">
+                <div class="midcard2_display">一卡通网银充值</div>
+                <div class="midcard3_display"></div>
+                <div class="midcard4_display">
+                    <img src="img/15.png" class="midcard5_display"/>
+                    <div class="midcard6_display">生活服务</div><br>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/><br>
+                    <div class="midcard7_display">73人收藏</div><br>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="card2_display">
+
+        <div class="midcardh1">
+            <div class="midcardh2">学生事务</div>
+            <img  class="midcardh3" src="img/youjiantou.png"/>
+        </div>
+        <div class="midcard8_display">
+            <div class="midcard1_display">
+                <div class="midcard2_display">打印就业推荐表</div>
+                <div class="midcard3_display"></div>
+                <div class="midcard4_display">
+                    <img src="img/sssw1.png" class="midcard5_display"/>
+                    <div class="midcard6_display">学生事务</div><br>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star.png"/>
+                    <img src="img/star.png"/><br>
+                    <div class="midcard7_display">100人收藏</div><br>
+                </div>
+
+            </div>
+            <div class="midcard1_display">
+                <div class="midcard2_display">学生医疗帮国资助申请</div>
+                <div class="midcard3_display"></div>
+                <div class="midcard4_display">
+                    <img src="img/sssw2.png" class="midcard5_display"/>
+                    <div class="midcard6_display">学生事务</div><br>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star.png"/><br>
+                    <div class="midcard7_display">3人收藏</div><br>
+                </div>
+
+            </div>
+        </div>
+        <div class="midcard8_display">
+            <div class="midcard1_display">
+                <div class="midcard2_display">本专科生学生基本信息确认</div>
+                <div class="midcard3_display"></div>
+                <div class="midcard4_display">
+                    <img src="img/sssw3.png" class="midcard5_display"/>
+                    <div class="midcard6_display">学生事务</div><br>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star.png"/><br>
+                    <div class="midcard7_display">6人收藏</div><br>
+                </div>
+
+            </div>
+            <div class="midcard1_display">
+                <div class="midcard2_display">本科生学籍证明打印</div>
+                <div class="midcard3_display"></div>
+                <div class="midcard4_display">
+                    <img src="img/sssw4.png" class="midcard5_display"/>
+                    <div class="midcard6_display">学生事务</div><br>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star.png"/>
+                    <img src="img/star.png"/><br>
+                    <div class="midcard7_display">63人收藏</div><br>
+                </div>
+
+            </div>
+        </div>
+        <div class="midcard8_display">
+            <div class="midcard1_display">
+                <div class="midcard2_display">十月评优</div>
+                <div class="midcard3_display"></div>
+                <div class="midcard4_display">
+                    <img src="img/16.png" class="midcard5_display"/>
+                    <div class="midcard6_display">学生事务</div><br>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star.png"/>
+                    <img src="img/star.png"/><br>
+                    <div class="midcard7_display">68人收藏</div><br>
+                </div>
+
+            </div>
+            <div class="midcard1_display">
+                <div class="midcard2_display">本专科生奖学金申请</div>
+                <div class="midcard3_display"></div>
+                <div class="midcard4_display">
+                    <img src="img/17.png" class="midcard5_display"/>
+                    <div class="midcard6_display">学生事务</div><br>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/><br>
+                    <div class="midcard7_display">44人收藏</div><br>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+    <div class="card3_display">
+
+        <div class="midcardh1">
+            <div class="midcardh2">教务教学</div>
+            <img  class="midcardh3" src="img/youjiantou.png"/>
+        </div>
+        <div class="midcard8_display">
+            <div class="midcard1_display">
+                <div class="midcard2_display">研究生论文评阅</div>
+                <div class="midcard3_display"></div>
+                <div class="midcard4_display">
+                    <img src="img/0.png" class="midcard5_display"/>
+                    <div class="midcard6_display">教务教学</div><br>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star.png"/>
+                    <img src="img/star.png"/><br>
+                    <div class="midcard7_display">22人收藏</div><br>
+                </div>
+
+            </div>
+            <div class="midcard1_display">
+                <div class="midcard2_display">本科生成绩单打印（在校）</div>
+                <div class="midcard3_display"></div>
+                <div class="midcard4_display">
+                    <img src="img/message_05.png" class="midcard5_display"/>
+                    <div class="midcard6_display">教务教学</div><br>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star.png"/><br>
+                    <div class="midcard7_display">6人收藏</div><br>
+                </div>
+
+            </div>
+        </div>
+        <div class="midcard8_display">
+            <div class="midcard1_display">
+                <div class="midcard2_display">本科课程查询</div>
+                <div class="midcard3_display"></div>
+                <div class="midcard4_display">
+                    <img src="img/18.png" class="midcard5_display"/>
+                    <div class="midcard6_display">教务教学</div><br>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star.png"/><br>
+                    <div class="midcard7_display">99人收藏</div><br>
+                </div>
+
+            </div>
+            <div class="midcard1_display">
+                <div class="midcard2_display">本科生选课</div>
+                <div class="midcard3_display"></div>
+                <div class="midcard4_display">
+                    <img src="img/message_07.png" class="midcard5_display"/>
+                    <div class="midcard6_display">教务教学</div><br>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star.png"/>
+                    <img src="img/star.png"/><br>
+                    <div class="midcard7_display">69人收藏</div><br>
+                </div>
+
+            </div>
+        </div>
+        <div class="midcard8_display">
+            <div class="midcard1_display">
+                <div class="midcard2_display">本科生成绩查询</div>
+                <div class="midcard3_display"></div>
+                <div class="midcard4_display">
+                    <img src="img/19.png" class="midcard5_display"/>
+                    <div class="midcard6_display">教务教学</div><br>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star.png"/>
+                    <img src="img/star.png"/><br>
+                    <div class="midcard7_display">5人收藏</div><br>
+                </div>
+
+            </div>
+            <div class="midcard1_display">
+                <div class="midcard2_display">本科生评教</div>
+                <div class="midcard3_display"></div>
+                <div class="midcard4_display">
+                    <img src="img/20.png" class="midcard5_display"/>
+                    <div class="midcard6_display">教务教学</div><br>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/>
+                    <img src="img/star_red.png"/><br>
+                    <div class="midcard7_display">13人收藏</div><br>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+ <!--<div style="height: 10px;background-color: #808080;width: 300px"></div>-->
+
+
+  <div style="width: 100%;">
+      <div class="card1_display">
+          <div class="midcardh1">
+              <div class="midcardh2">IT服务</div>
+              <img  class="midcardh3" src="img/youjiantou.png"/>
+          </div>
+          <div class="midcard8_display">
+              <div class="midcard1_display">
+                  <div class="midcard2_display">微软正版软件</div>
+                  <div class="midcard3_display"></div>
+                  <div class="midcard4_display">
+                      <img src="img/ip2.png" class="midcard5_display"/>
+                      <div class="midcard6_display">IT服务</div><br>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star.png"/>
+                      <img src="img/star.png"/><br>
+                      <div class="midcard7_display">22人收藏</div><br>
+                  </div>
+
+              </div>
+              <div class="midcard1_display">
+                  <div class="midcard2_display">SPPSS授权及计算机资源服务</div>
+                  <div class="midcard3_display"></div>
+                  <div class="midcard4_display">
+                      <img src="img/ip3.png" class="midcard5_display"/>
+                      <div class="midcard6_display">IT服务</div><br>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star.png"/><br>
+                      <div class="midcard7_display">33人收藏</div><br>
+                  </div>
+
+              </div>
+          </div>
+          <div class="midcard8_display">
+              <div class="midcard1_display">
+                  <div class="midcard2_display">复旦大学二级域名申请</div>
+                  <div class="midcard3_display"></div>
+                  <div class="midcard4_display">
+                      <img src="img/ip.png" class="midcard5_display"/>
+                      <div class="midcard6_display">IT服务</div><br>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star.png"/><br>
+                      <div class="midcard7_display">45人收藏</div><br>
+                  </div>
+
+              </div>
+              <div class="midcard1_display">
+                  <div class="midcard2_display">手机找回邮箱密码</div>
+                  <div class="midcard3_display"></div>
+                  <div class="midcard4_display">
+                      <img src="img/ip4.png" class="midcard5_display"/>
+                      <div class="midcard6_display">IT服务</div><br>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star.png"/>
+                      <img src="img/star.png"/><br>
+                      <div class="midcard7_display">33人收藏</div><br>
+                  </div>
+
+              </div>
+          </div>
+
+      </div>
+      <div class="card2_display">
+
+          <div class="midcardh1">
+              <div class="midcardh2">外事服务</div>
+              <img  class="midcardh3" src="img/youjiantou.png"/>
+          </div>
+          <div class="midcard8_display">
+              <div class="midcard1_display">
+                  <div class="midcard2_display">在职教职工因公出国（境）审批</div>
+                  <div class="midcard3_display"></div>
+                  <div class="midcard4_display">
+                      <img src="img/4.png" class="midcard5_display"/>
+                      <div class="midcard6_display">外事服务</div><br>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star.png"/>
+                      <img src="img/star.png"/><br>
+                      <div class="midcard7_display">34人收藏</div><br>
+                  </div>
+
+              </div>
+              <div class="midcard1_display">
+                  <div class="midcard2_display">来华人员签证申请</div>
+                  <div class="midcard3_display"></div>
+                  <div class="midcard4_display">
+                      <img src="img/5.png" class="midcard5_display"/>
+                      <div class="midcard6_display">外事服务</div><br>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star.png"/><br>
+                      <div class="midcard7_display">88人收藏</div><br>
+                  </div>
+
+              </div>
+          </div>
+          <div class="midcard8_display">
+              <div class="midcard1_display">
+                  <div class="midcard2_display">干部因私出国（境）审批</div>
+                  <div class="midcard3_display"></div>
+                  <div class="midcard4_display">
+                      <img src="img/6.png" class="midcard5_display"/>
+                      <div class="midcard6_display">外事服务</div><br>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star.png"/><br>
+                      <div class="midcard7_display">55人收藏</div><br>
+                  </div>
+
+              </div>
+              <div class="midcard1_display">
+                  <div class="midcard2_display">全日制在读学生因公出国（境..</div>
+                  <div class="midcard3_display"></div>
+                  <div class="midcard4_display">
+                      <img src="img/7.png" class="midcard5_display"/>
+                      <div class="midcard6_display">外事服务</div><br>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star.png"/>
+                      <img src="img/star.png"/><br>
+                      <div class="midcard7_display">63人收藏</div><br>
+                  </div>
+
+              </div>
+          </div>
+          <div class="midcard8_display">
+              <div class="midcard1_display">
+                  <div class="midcard2_display">来华人员登记（经费核算）</div>
+                  <div class="midcard3_display"></div>
+                  <div class="midcard4_display">
+                      <img src="img/8.png" class="midcard5_display"/>
+                      <div class="midcard6_display">外事服务</div><br>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star.png"/>
+                      <img src="img/star.png"/><br>
+                      <div class="midcard7_display">99人收藏</div><br>
+                  </div>
+
+              </div>
+              <div class="midcard1_display">
+                  <div class="midcard2_display">校际交流项目申请</div>
+                  <div class="midcard3_display"></div>
+                  <div class="midcard4_display">
+                      <img src="img/message_08.png" class="midcard5_display"/>
+                      <div class="midcard6_display">外事服务</div><br>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/><br>
+                      <div class="midcard7_display">111人收藏</div><br>
+                  </div>
+
+              </div>
+          </div>
+
+
+      </div>
+      <div class="card4_display">
+
+          <div class="midcardh1">
+              <div class="midcardh2">资产财务</div>
+              <img  class="midcardh3" src="img/youjiantou.png"/>
+          </div>
+          <div class="midcard8_display">
+              <div class="midcard1_display">
+                  <div class="midcard2_display">资产合同管理</div>
+                  <div class="midcard3_display"></div>
+                  <div class="midcard4_display">
+                      <img src="img/9.png" class="midcard5_display"/>
+                      <div class="midcard6_display">资产财务</div><br>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star.png"/>
+                      <img src="img/star.png"/><br>
+                      <div class="midcard7_display">55人收藏</div><br>
+                  </div>
+
+              </div>
+              <div class="midcard1_display">
+                  <div class="midcard2_display">科研经费执行情况查看</div>
+                  <div class="midcard3_display"></div>
+                  <div class="midcard4_display">
+                      <img src="img/10.png" class="midcard5_display"/>
+                      <div class="midcard6_display">资产财务</div><br>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star.png"/><br>
+                      <div class="midcard7_display">52人收藏</div><br>
+                  </div>
+
+              </div>
+          </div>
+          <div class="midcard8_display">
+              <div class="midcard1_display">
+                  <div class="midcard2_display">固定资产报废</div>
+                  <div class="midcard3_display"></div>
+                  <div class="midcard4_display">
+                      <img src="img/11.png" class="midcard5_display"/>
+                      <div class="midcard6_display">资产财务</div><br>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star.png"/><br>
+                      <div class="midcard7_display">87人收藏</div><br>
+                  </div>
+
+              </div>
+              <div class="midcard1_display">
+                  <div class="midcard2_display">日常财务报销</div>
+                  <div class="midcard3_display"></div>
+                  <div class="midcard4_display">
+                      <img src="img/message_04.png" class="midcard5_display"/>
+                      <div class="midcard6_display">资产财务</div><br>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star.png"/>
+                      <img src="img/star.png"/><br>
+                      <div class="midcard7_display">31人收藏</div><br>
+                  </div>
+
+              </div>
+          </div>
+          <div class="midcard8_display">
+              <div class="midcard1_display">
+                  <div class="midcard2_display">固定资产网上报销</div>
+                  <div class="midcard3_display"></div>
+                  <div class="midcard4_display">
+                      <img src="img/12.png" class="midcard5_display"/>
+                      <div class="midcard6_display">资产财务</div><br>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star.png"/>
+                      <img src="img/star.png"/><br>
+                      <div class="midcard7_display">43人收藏</div><br>
+                  </div>
+
+              </div>
+              <div class="midcard1_display">
+                  <div class="midcard2_display">外购存货网上申请</div>
+                  <div class="midcard3_display"></div>
+                  <div class="midcard4_display">
+                      <img src="img/13.png" class="midcard5_display"/>
+                      <div class="midcard6_display">资产财务</div><br>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/>
+                      <img src="img/star_red.png"/><br>
+                      <div class="midcard7_display">0人收藏</div><br>
+                  </div>
+
+              </div>
+          </div>
+
+
+      </div>
+  </div>
+
+</body>
+</html>
